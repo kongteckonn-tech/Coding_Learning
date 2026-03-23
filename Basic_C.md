@@ -1,0 +1,63 @@
+#Basic Knowledge
+
+Unit 
+8 bit = 1 byte
+1024 byte = 1 kb
+1024 kb = 1 mb
+1024 mb = 1 gb
+1024 gb = 1 tb
+1024 tb = 1 pb
+
+Data Type 
+1. Build-in type
+	char
+	int
+	short
+	long
+	long long
+	flout 
+	double
+2. User-defined type
+	struct
+	enum
+	union
+
+Variables 
+1. Local Variables 
+  - Inside {}
+2. Global Variables
+  - Outside {}
+When the local variable and global variable have the same name, the local variables takes precedence
+
+Scope 作用域
+1. Local Variables 
+  - end after }
+2. Global Variables
+  - end when project end
+
+Constant
+1. literally constant
+  - 3.1415926
+  - "Hello World"
+  - 50
+2. const variables
+  - const int a = 50;
+  - a cannot change when project start 
+3. Macro constant #define
+  - #define M 100
+  - M cannot change when project start 
+4. enum constant 
+  enum color 
+  {
+    RED,
+    YELLOW,
+    BLUE,
+  };
+
+Character
+1. size_t strlen ( const char * str ); calculate the number of charaters 
+2. standard ACSII 
+
+Commend 
+1. // single line 
+2. /**/ multiple line
