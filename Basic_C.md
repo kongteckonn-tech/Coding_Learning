@@ -61,4 +61,57 @@ Character
 Commend 
 1. // single line 
 2. /**/ multiple line
-
+----------------------------------------------------------------------------------------------------------------------------------------
+Statement
+1. Selection statement
+ - if
+ - if else
+ - switch 
+2. Iteration statement 
+ - while
+ - for 
+ - do while
+3. Jump statement
+ - continue
+ - break
+ - return 
+ - goto
+----------------------------------------------------------------------------------------------------------------------------------------
+Function
+- function_type function_name ( parameters ) { process }
+- exp:
+- int add (int x, int y) { return x + y; }
+----------------------------------------------------------------------------------------------------------------------------------------
+Array
+- store the datas that have same type
+- arrry_type array_name[ the_number_of_ elements ] = { }
+- exp:
+- int num[10] = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }
+----------------------------------------------------------------------------------------------------------------------------------------
+Operator
+1. Arithmetic operator
+ - ( + - * / % )
+2. Shift operator 移位操作符
+ - >> <<
+3. Bitwise operator 位操作符
+ - | & ^
+4. Assignment operator 赋值
+ - = += -= *= /= %=
+ - ^= |= &= >>= <<=
+5. Relational operator
+ - == < > <= >= !=
+6. Logic operator
+ - || &&
+7. Conditional operator
+ - exp1 ? exp2 : exp3
+ - if exp1 true then conduct exp2  
+ - if exp1 false then conduct exp3
+---------
+Pointer
+Address operator 
+ - &
+Pointer operator 
+ - *
+Pointer size
+ - Pointers are 4 bytes on a 32-bit platform and 8 bytes on a 64-bit platform.
+--------
