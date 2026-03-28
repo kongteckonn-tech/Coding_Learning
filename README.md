@@ -1,2 +1,2 @@
-# Coding_Learning
-Learn various kinds of  Coding 
+# C Languege 
+Learn C langeuge
