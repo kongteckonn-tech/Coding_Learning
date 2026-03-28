@@ -1,4 +1,4 @@
-#Basic Knowledge
+# Basic Knowledge
 
 Unit 
 1. 8 bit = 1 byte
