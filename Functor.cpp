@@ -202,27 +202,28 @@
 /* predicate adapter */
 
 // bind1st, bind2nd, not1, not2
-# include<vector>
-#include<algorithm>
-struct _Count
-{
-private:
-	int _count = 0;
-public:
-	void operator()()
-	{
-		_count++;
-	}
-	int get_count() const
-	{
-		return _count;
-	}
-};
-int main()
-{
-	vector<int> v = { 1, 2, 3, 4, 5, 6, 7, 3, 3, 3 };
-	auto t = for_each(v.begin(), v.end(), [](int a) { cout << a << ' '; });
-	auto count = for_each(v.begin(), v.end(), _Count());
-	cout << endl << count.get_count() << endl;
-	return 0;
-}
+//#include<vector>
+//#include<algorithm>
+//using namespace std;
+//struct _Count
+//{
+//private:
+//	int _count = 0;
+//public:
+//	void operator()()
+//	{
+//		_count++;
+//	}
+//	int get_count() const
+//	{
+//		return _count;
+//	}
+//};
+//int main()
+//{
+//	vector<int> v = { 1, 2, 3, 4, 5, 6, 7, 3, 3, 3 };
+//	auto t = for_each(v.begin(), v.end(), [](int a) { cout << a << ' '; });
+//	auto count = for_each(v.begin(), v.end(), _Count());
+//	cout << endl << count.get_count() << endl;
+//	return 0;
+//}
