@@ -1,45 +1,22 @@
-#include<iostream>
+/* Stack_and_Queue */
+
+/* Stack */
 #include<stack>
-#include<queue>
-using namespace std;
 
-/* Stack 
-	first in last out 
-*/
-;
-	//int main()
-	//{
-	//	stack<int> num;
-	//	for (int i = 10; i <= 100; i += 10)
-	//	{
-	//		num.push(i);
-	//	}
-	//	cout << num.top() << endl;
-	//	cout << num.size() << endl;
-	//	num.pop();
-	//	cout << num.top() << endl;
-	//	cout << num.size() << endl;
-	//	return 0;
-	//}
+int main()
+{
+	stack<int> st;
+	for (int i = 0; i < 10; i++)
+		st.push(i);
+	while (!st.empty())
+	{
+		cout << st.top() << ' ';
+		st.pop();
+	}
+	cout << endl << st.size() << endl;
+	return 0;
+}
 
-/* Queue 
-	last in last out 
-*/
-;
-	//int main()
-	//{
-	//	queue<int> num;
-	//	for (int i = 10; i <= 100; i += 10)
-	//	{
-	//		num.push(i);
-	//	}
-	//	cout << num.front() << endl;
-	//	cout << num.back() << endl;
-	//	cout << num.size() << endl;
-	//	num.pop();
-	//	cout << num.front() << endl;
-	//	cout << num.back() << endl;
-	//	cout << num.size() << endl;
-	//	return 0;
-	//}
+/* emplace or push */
 
+// emplace 可以直接 move construct 
