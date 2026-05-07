@@ -1,454 +1,528 @@
-﻿#include<iostream>
+#include<iostream>
+#include<vector>
+#include<algorithm>
+#include<functional>
 using namespace std;
 
-// save to iterator file
-
-//template <typename type> class Vector
-//{
-//public:
-//	using iterator = type*;
-//private:
-//	type* _base;
-//	int _size;
-//	int _capacity;
-//public:
-//	Vector() : _size(0), _capacity(0), _base(nullptr) {}
-//	Vector(int size) : _capacity(size), _size(0)
-//	{
-//		_base = new type[_capacity];
-//	}
-//	~Vector()
-//	{
-//		delete[] _base;
-//	}
-//	void Pop()
-//	{
-//		if (_size > 0)
-//			_size--;
-//	}
-//	type& operator[](int index)
-//	{
-//		if (index >= 0 && index < _size)
-//			return _base[index];
-//	}
-//	void Push(type value)
-//	{
-//		if (_size < _capacity)
-//			_base[_size++] = value;
-//		else
-//		{
-//			if (_capacity <= 0)
-//				_capacity = 1;
-//			type* tmp = new type[_capacity * 2];
-//			if (_base == NULL)
-//			{
-//				_base = tmp;
-//				_capacity *= 2;
-//				_base[_size++] = value;
-//				return;
-//			}
-//			for (int i = 0; i < _size; i++)
-//				tmp[i] = _base[i];
-//			delete[] _base;
-//			_base = tmp;
-//			_capacity *= 2;
-//			_base[_size++] = value;
-//		}
-//	}
-//public:
-//		class Iterator
-//		{
-//		private:
-//			type* _ptr;
-//		public:
-//			Iterator() : _ptr(nullptr) {}
-//			Iterator(type* ptr) : _ptr(ptr) {}
-//			type& operator*()
-//			{
-//				return *_ptr;
-//			}
-//			Iterator& operator++()
-//			{
-//				_ptr++;
-//				return *this;
-//			}
-//			Iterator operator++(int)
-//			{
-//				Iterator tmp = *this;
-//				_ptr++;
-//				return tmp;
-//			}
-//			bool operator!=(const Iterator& other) const
-//			{
-//				return _ptr != other._ptr;
-//			}
-//		};
-//		Iterator begin()
-//		{
-//			return Iterator(_base);
-//		}
-//		Iterator end()
-//		{
-//			return Iterator(_base + _size);
-//		}
-//};
-//template <typename iter, typename fun> void foreach (iter begin, iter end, fun f)
-//{
-//	for (iter it = begin; it != end; ++it)
-//	{
-//		f(*it);
-//	}
-//}
-//template <typename type> void print(type value)
-//{
-//	cout << value << ' ';
-//}
-//int main()
-//{
-//	Vector<int> vec;
-//	for(int i = 0; i < 10; i++)
-//		vec.Push(i + 1);
-//	foreach(vec.begin(), vec.end(), print<int>);
-//	cout << endl;
-//	for(Vector<int>::Iterator it = vec.begin(); it != vec.end(); ++it)
-//		cout << *it << ' ';
-//	return 0;
-//}
-
-/* Initial list */
-
-//#include<initializer_list>
-//template <typename type> class Vector
-//{
-//public:
-//	using iterator = type*;
-//private:
-//	type* _base;
-//	int _size;
-//	int _capacity;
-//public:
-//	Vector() : _size(0), _capacity(0), _base(nullptr) {}
-//	Vector(const initializer_list<type>& ls): Vector(ls.size())
-//	{
-//		for (const type& val : ls)
-//		{
-//			_base[_size++] = val;
-//		}
-//	}
-//	Vector(int size) : _capacity(size), _size(0)
-//	{
-//		_base = new type[_capacity];
-//	}
-//	~Vector()
-//	{
-//		delete[] _base;
-//	}
-//	void Pop()
-//	{
-//		if (_size > 0)
-//			_size--;
-//	}
-//	type& operator[](int index)
-//	{
-//		if (index >= 0 && index < _size)
-//			return _base[index];
-//	}
-//	void Push(type value)
-//	{
-//		if (_size < _capacity)
-//			_base[_size++] = value;
-//		else
-//		{
-//			if (_capacity <= 0)
-//				_capacity = 1;
-//			type* tmp = new type[_capacity * 2];
-//			if (_base == NULL)
-//			{
-//				_base = tmp;
-//				_capacity *= 2;
-//				_base[_size++] = value;
-//				return;
-//			}
-//			for (int i = 0; i < _size; i++)
-//				tmp[i] = _base[i];
-//			delete[] _base;
-//			_base = tmp;
-//			_capacity *= 2;
-//			_base[_size++] = value;
-//		}
-//	}
-//public:
-//		class Iterator
-//		{
-//		private:
-//			type* _ptr;
-//		public:
-//			Iterator() : _ptr(nullptr) {}
-//			Iterator(type* ptr) : _ptr(ptr) {}
-//			type& operator*()
-//			{
-//				return *_ptr;
-//			}
-//			Iterator& operator++()
-//			{
-//				_ptr++;
-//				return *this;
-//			}
-//			Iterator operator++(int)
-//			{
-//				Iterator tmp = *this;
-//				_ptr++;
-//				return tmp;
-//			}
-//			bool operator!=(const Iterator& other) const
-//			{
-//				return _ptr != other._ptr;
-//			}
-//		};
-//		Iterator begin()
-//		{
-//			return Iterator(_base);
-//		}
-//		Iterator end()
-//		{
-//			return Iterator(_base + _size);
-//		}
-//};
-//int main()
-//{
-//	initializer_list<int> arr = { 1, 2, 3, 4, 5 };
-//	for(auto& v : arr)
-//		cout << v << ' ';
-//	cout << endl;
-//	Vector<int> num = { 1, 2, 3, 4, 5 };
-//	for (int& v : num)
-//		cout << v << ' ';
-//	return 0;
-//}
-
-/* Functor new file */
-
-// class 私有成员函数不能被当作函数指针使用
-// struct 公有成员函数可以被当作函数指针使用
-//struct _Value
-//{
-//	// overload operator() to make the struct a functor
-//	void operator()() 
-//	{
-//		cout << "HAHA struct" << endl;
-//	}
-//};
-//class _Show
-//{
-//public:
-//	void operator()()
-//	{
-//		cout << "HAHA class" << endl;
-//	}
-//};
-//int main()
-//{
-//	_Show show;
-//	show();
-//	_Show()();
-//	_Value v;
-//	_Value()();
-//	v();
-//	return 0;
-//}
-
-//using fun = void(*)(int); // or void(int);
-//// normal function
-//void print(int value)
-//{
-//	cout << value << endl;
-//}
-//// functor 
-//class _Print
-//{
-//public:
-//	void operator()(int value)
-//	{
-//		cout << value << endl;
-//	}
-//};
-//template<typename fun>
-//void Test_Fun(int val, fun f)
-//{
-//	f(val);
-//}
-//int main()
-//{
-//	Test_Fun(10, print);
-//	Test_Fun(20, [](int v) {cout << v << endl; });
-//	_Print p;
-//	Test_Fun(30, p);
-//	Test_Fun(40, _Print());
-//	return 0;
-//}
-
-// functor have status, lambda have status, but normal function don't have status
-// like fabonacci
-//int fabonaci(int i)
-//{
-//	// return a value of fabonaci sequence when call the function with i
-//	int a = 0, b = 1;
-//	for(int j = 0; j < i; j++)
-//	{
-//		int tmp = a;
-//		a = b;
-//		b = tmp + b;
-//	}
-//	// for this need calculate the value of fabonaci from start to i
-//	return a;
-//}
-//class _Fabonacci
-//{
-//private:
-//	int _a, _b;
-//public:
-//	// for this can store data of fabonaci 
-//	// and return the next value when call the function
-//	// so the value of fabonaci can be calculated in O(1) time
-//	_Fabonacci() : _a(0), _b(1) {}
-//	_Fabonacci(int index) 
-//	{
-//		_a = operator()(index);
-//		_b = operator()(index + 1);
-//	}
-//	int operator()()
-//	{
-//		int tmp = _a;
-//		_a = _b;
-//		_b = tmp + _b;
-//		return tmp;
-//	}
-//	int operator()(int i)
-//	{
-//		int a = 0, b = 1;
-//		int tmp = a;
-//		for (int j = 0; j < i; j++)
-//		{
-//			tmp = a;
-//			a = b;
-//			b = tmp + b;
-//		}
-//		return tmp;
-//	}
-//};
-//int main()
-//{
-//	//for (size_t i = 0; i < 10; i++)
-//	//{
-//	//	cout << fabonaci(i) << ' ';
-//	//}
-//	_Fabonacci f;
-//	for (int i = 0; i < 10; i++)
-//		cout << f() << ' ';
-//	cout << endl << f() << endl;
-//	cout << f(5) << endl;
-//	_Fabonacci f2(5);
-//	cout << f2() << ' ';
-//	cout << f2() << endl;
-//	return 0;
-//}
-
-/* vector */
-
-//#include<vector>
-//template <typename fun>
-//int count(
-//	vector<int>::iterator begin, 
-//	vector<int>::iterator  end, 
-//	fun f,
-//	int com
-//)
-//{
-//	int count = 0;
-//	for (vector<int>::iterator it = begin; it != end; ++it)
-//	{
-//		if (f(*it, com))
-//			count++;
-//	}
-//	return count;
-//}
-//bool more_than(int value, int com)
-//{
-//	return value > com;
-//}
-//int main()
-//{
-//	vector<int> v = { 1, 2, 3, 4, 5, 6, 7, 3, 3, 3 };
-//	// count the number of more than 3 in the vector
-//	cout << count(v.begin(), v.end(), more_than, 3) << endl;
-//	// count the number of more than 4 in the vector
-//	cout << count(v.begin(), v.end(), more_than, 4) << endl;
-//	return 0;
-//} // confuse 
-
-/* lamba */
-
-// more batter
-//#include<vector>
-//template <typename fun>
-//int count(
-//	vector<int>::iterator begin,
-//	vector<int>::iterator  end,
-//	fun f
-//)
-//{
-//	int count = 0;
-//	for (vector<int>::iterator it = begin; it != end; ++it)
-//	{
-//		if (f(*it))
-//			count++;
-//	}
-//	return count;
-//}
-//int main()
-//{
-//	vector<int> v = { 1, 2, 3, 4, 5, 6, 7, 3, 3, 3 };
-//	cout << count(v.begin(), v.end(), [](int a) { return a > 3; }) << endl;
-//	return 0;
-//}
-
-/* new file name predicate */
-
-// bool operator()(int value) called one predicate
-//bool more(int a)
-//{
-//	return a > 3;
-//}
-//// binary predicate
-//bool more(int a, int b)
-//{
-//	return a > b;
-//}
+/* to Functor.cpp line 202 */
 
 /* predicate adapter */
 
 // bind1st, bind2nd, not1, not2
-# include<vector>
-#include<algorithm>
-struct _Count
-{
-private:
-	int _count = 0;
-public:
-	void operator()()
-	{
-		_count++;
-	}
-	int get_count() const
-	{
-		return _count;
-	}
-};
+
+/* bind1st */
+//#include<vector>
+//#include<algorithm>
+//struct _Count
+//{
+//private:
+//	int _count = 0;
+//public:
+//	void operator()(int a)
+//	{
+//		_count++;
+//	}
+//	int get_count() const
+//	{
+//		return _count;
+//	}
+//};
+//int main()
+//{
+//	vector<int> v = { 1, 2, 3, 4, 5, 6, 7, 3, 3, 3 };
+//	auto t = for_each(v.begin(), v.end(), _Count());
+//	cout << t.get_count() << endl;
+//	return 0;
+//}
+
+/* bind1st bind2nd */
+
+//#include<vector>
+//#include<algorithm>
+//#include<functional>
+//struct _Fun : public binary_function<int, int, bool>
+//{
+//	bool operator()(int a, int b) const 
+//	{
+//		return a > b;
+//	}
+//};
+//// bind1st 
+///* 
+//struct _Fun : public binary_function<int, int, bool>
+//{
+//	bool operator()(int a, int b) const
+//	{
+//		return a > b;
+//	}
+//};
+//	| cout << count_if(v.begin(), v.end(), bind1st(_Fun(), 3));
+//	v
+//struct _Fun : public binary_function<int, int, bool>
+//{
+//private:
+//	int _a = 3;
+//	bool operator()(int b) const
+//	{
+//		return _a > b;
+//	}
+//};
+//*/
+//int main()
+//{
+//	vector<int> v = { 1, 2, 3, 4, 5, 6, 7, 3, 3, 3 };
+//	// find the count of elements that are smaller than 3
+//	cout << count_if(v.begin(), v.end(), bind1st(_Fun(), 3)) << endl;
+//	// find the count of elements that are greater than 3
+//	cout << count_if(v.begin(), v.end(), bind2nd(_Fun(), 3)) << endl;
+//	return 0;
+//}
+
+/* bind */
+
+//#include<vector>
+//#include<algorithm>
+//#include<functional>
+//bool cmp(int a, int b)
+//{
+//	return a > b;
+//}
+//int main()
+//{
+//	vector<int> arr = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+//	cout << count_if(arr.begin(), arr.end(), bind(cmp, placeholders::_1, 5)) << endl;
+//	return 0;
+//}
+
+/* placeholders */
+
+//#include<vector>
+//#include<algorithm>
+//#include<functional>
+//void show(int a, char b, double c)
+//{
+//	cout << a << " " << b << " " << c << endl;
+//}
+//int main()
+//{
+//	auto fun = std::bind(show, 10, 'A', 3.14); // 绑定参数
+//	fun(20, 'B', 2.5);
+//	fun();// 之后改变参数值无效，因为已经绑定了参数
+//	// std::placeholders::_1, std::placeholders::_2, std::placeholders::_3... 可以用来占位，表示调用时传入的参数
+//	// _1 表示第一个参数，_2 表示第二个参数，依此类推
+//	auto fun2 = std::bind(show, placeholders::_1, placeholders::_2, 3.14);
+//	fun2(40, 'C');
+//	fun2(50, 'D');
+//	return 0;
+//}
+
+/* std::mem_fn() 把类函数 转去 functor */
+
+//class _Person
+//{
+//private:
+//	int _age;
+//	int _id;
+//public:
+//	_Person(int age, int id) : _age(age), _id(id)
+//	{
+//	}
+//	~_Person()
+//	{
+//	}
+//	void show() const
+//	{
+//		cout << "age: " << _age << "\tid: " << _id << endl;
+//	}
+//};
+//int main()
+//{
+//	vector<_Person> v = { _Person(21, 1001), _Person(22, 1002), _Person(23, 1003) };
+//	for (const auto& p : v)
+//	{
+//		p.show();
+//	}
+//	for_each(v.begin(), v.end(), std::mem_fn(&_Person::show));
+//	return 0;
+//}
+
+/* new file String */
+#include<string>
+
+//int main()
+//{
+//	// 1
+//	string s("Kong");
+//	cout << s << endl;
+//	// 2 move constructor
+//	string s1(std::move(s));
+//	cout << s << ' ' << s1 << endl;
+//	// 3
+//	char ps[] = "Kong";
+//	string str(ps);
+//	cout << str << endl;
+//	// 4
+//	char name[] = "Kong Teck Onn";
+//	string cut(name + 5, 5);
+//	cout << cut << endl;
+//	// 5 20个J and 20个A
+//	string A20(20, 65);
+//	string J20(20, 74);
+//	cout << A20 << ' ' << J20 << endl;
+//	return 0;
+//}
+
+// at, [], substr , front, back, max size, capacity
+
+//int main()
+//{
+//	string name = "Kong Teck Onn";
+//	cout << name << endl;
+//	// at and []
+//	for (int i = 0; i < name.size(); i++) 
+//		cout << name.at(i); /* OR cout << name[i] */
+//	cout << endl;
+//	// substr substr(pos, len) 从pos位置开始，截取len个字符，如果len超过了字符串
+//	cout << name.substr(5) << endl;
+//	// front and back
+//	cout << name.front() << ' ' << name.back() << endl;
+//	// max size
+//	cout << hex << name.max_size() << endl;
+//	// capacity
+//	cout << dec << name.capacity() << endl;
+//	return 0;
+//}
+
+// reserve, resize, clear
+
+//int main()
+//{
+//	string name = "Kong Teck Onn";
+//	// reserve 申请 increase capacity, 但不改变size
+//	name.reserve(20);
+//	cout << "capacity: " << name.capacity() << " size: " << name.size() << endl;
+//	// resize 改变size 但不改变capacity, 如果size增加了，新增的部分会被默认值填充
+//	name.resize(20);
+//	cout << "capacity: " << name.capacity() << " size: " << name.size() << endl;
+//	// clear
+//	name.clear();
+//	cout << "capacity: " << name.capacity() << " size: " << name.size() << endl;
+//	return 0;
+//}
+
+// operator +=, append, assign, insert
+
+//int main()
+//{
+//	// operator +=, append
+//	string question = "What is your name?";
+//	cout << question << endl;
+//	question += " My name is Kong Teck Onn.";
+//	cout << question << endl;
+//	question.append(" Student");
+//	cout << question << endl;
+//	question += string(" ID: 110518");
+//	cout << question << endl;
+//	// assign 会替换原来的内容
+//	question.assign("How old are you?");
+//	cout << question << endl;
+//	// insert 在指定位置插入字符串
+//	question.insert(15, " Sir");
+//	cout << question << endl;
+//	// earse 删除指定位置的字符串
+//	question.erase(15, 4);
+//	cout << question << endl;
+//	return 0;
+//}
+
+// replace, find
+
+//int main()
+//{
+//	// replace 替换指定位置的字符串
+//	string name = "Kong Teck Onn";
+//	name.replace(0, 4, "Mr. Kong");
+//	cout << name << endl;
+//	name += " love Mis. Tang Joo Wen";
+//	cout << name << endl;
+//	// find 查找字符串，返回第一次出现的位置，如果没有找到，返回 string::npos
+//	cout << name.find("Tang") << endl;
+//	cout << hex << name.find("John") << endl;
+//	return 0;
+//}
+
+/* new file Array */
+#include<array>
+
+// array::size, array::empty
+
+//int main()
+//{
+//	// array::size
+//	array<int, 10> nums;
+//	for (int i = 0; i < nums.size(); i++)
+//		nums[i] = i + 1;
+//	for (auto& v : nums)
+//		cout << v << ' ';
+//	cout << endl;
+//	// array::empty
+//	array<int, 0> empty_array;
+//	cout << "Empty: " << empty_array.empty() << " nums: " << nums.empty() << endl;
+//	return 0;
+//}
+
+// array::fill() 
+
+//int main()
+//{
+//	// array::fill fill(value) 用指定的值填充数组
+//	array<int, 10> nums;
+//	nums.fill(5);
+//	for (auto b = nums.begin(); b != nums.end(); b++)
+//		cout << *b << ' ';
+//	return 0;
+//}
+
+/* new file Vector */
+#include<vector>
+
+// vector::at, vector::front, vector::back
+
+//int main()
+//{
+//	vector<int> v(10, 5); // 10个元素，每个元素的值为5
+//	vector<double> d(5); // 5个元素，默认值为0.0
+//	vector<float> f = { 1.1, 2.2, 3.3, 4.4, 5.5 };
+//	return 0;
+//}
+
+// vector::size, vector::max_size, vector::capacity, vector::empty
+
+// vector::reserve, vector::resize, vector::clear, vector::empty
+
+// vector::push_back, vector::emplace, vector::insert, vector erase
+
+/* push back */
+
+//class _Test
+//{
+//public:
+//	_Test()
+//	{
+//		cout << "_Test construct" << endl; 
+//	}
+//	_Test(const _Test& right)
+//	{
+//		cout << "_Test& construct" << endl;
+//	}
+//	_Test(_Test&& right)
+//	{
+//		cout << "_Test&& construct" << endl;
+//	}
+//	~_Test()
+//	{
+//		cout << "~_Test distruct" << endl;
+//	}
+//};
+//int main()
+//{
+//	{
+//		vector<_Test> v;
+//		v.push_back(_Test());
+//	}
+//	cout << endl;
+//	{
+//		vector<_Test> v;
+//		_Test t;
+//		v.push_back(t);
+//	}
+//	cout << endl;
+//	{
+//		vector<_Test> v;
+//		_Test t;
+//		v.push_back(std::move(t));
+//	}
+//	cout << endl;
+//	return 0;
+//}
+
+/* emplace */
+
+//class _Test
+//{
+//public:
+//	_Test()
+//	{
+//		cout << "_Test construct" << endl; 
+//	}
+//	_Test(const _Test& right)
+//	{
+//		cout << "_Test& construct" << endl;
+//	}
+//	_Test(_Test&& right)
+//	{
+//		cout << "_Test&& construct" << endl;
+//	}
+//	~_Test()
+//	{
+//		cout << "~_Test distruct" << endl;
+//	}
+//	_Test& operator=(const _Test right)
+//	{
+//		cout << '=' << endl;
+//		return *this;
+//	}
+//};
+//int main()
+//{
+//	vector<_Test> v;
+//	v.push_back(_Test());
+//	v.emplace(v.begin(), _Test());
+//	return 0;
+//}
+
+// 野指针
+
+//int main()
+//{
+//	// 野指针
+//	vector<int> v{ 1,2,3,4,5,6 };
+//	for (auto it = v.begin(); it != v.end(); it++)
+//	{
+//		if (*it == 3)
+//			v.erase(it);
+//		cout << *it << endl;
+//	}
+//	return 0;
+//}
+
+/* new file List */
+#include<list>
+
+/* list<int>::splice 结合 
+list 双向链表
+forward list 单向链表
+*/
+
+//template<typename type>
+//void Show(list<type>& ls)
+//{
+//	for (auto& v : ls)
+//		cout << v << ' ';
+//	cout << endl;
+//}
+//int main()
+//{
+//	list<int> nums{ 1,2,3,4,5,6,7,8,9,10 };
+//	list<int> nums1 = { 9,8,7,6,5,4,3,2,1 };
+//	nums.splice(nums.end(), nums1);
+//	Show(nums);
+//	// nums1 become empty
+//	cout << nums1.empty() << endl;
+//	return 0;
+//}
+
+/* list<int>::remove / remove_if, unique, sort */
+
+//template <typename type> void Show(list<type> ls)
+//{
+//	for (auto& v : ls)
+//		cout << v << ' ';
+//	cout << endl;
+//}
+//int main()
+//{
+//	list<int> nums;
+//	for (int i = 1; i <= 10; i++)
+//		nums.push_front(i);
+//	for (int i = 1; i <= 10; i++)
+//		nums.push_back(i);
+//	Show(nums);
+//	// remove 
+//	nums.remove(4);
+//	Show(nums);
+//	// remove_if
+//	nums.remove_if(
+//		[](auto& v) {
+//			return v % 2 == 0;
+//		});
+//	Show(nums);
+//	// unique is to remove continuesly same elements
+//	nums.insert(nums.end(), 4, 9);
+//	Show(nums);
+//	nums.unique();
+//	Show(nums);
+//	// sort 
+//	nums.sort();
+//	nums.unique();
+//	Show(nums);
+//	// reverse
+//	nums.reverse();
+//	Show(nums);
+//	return 0;
+//}
+
+/* merge */
+
+//template <typename type> void Show(list<type> ls)
+//{
+//	for (auto& v : ls)
+//		cout << v << ' ';
+//	cout << endl;
+//}
+//int main()
+//{
+//	list<int> ls = { 1,3,9 };
+//	list<int> ls1 = { 2,4,6 };
+//	// merge 跟 splice 分别
+//	// merge 结合后 排序 小到大
+//	// splice 结合 不排序
+//	ls.merge(ls1); // 注意：merge 用前要先排序小到大
+//	Show(ls);
+//	cout << ls.empty() << endl;
+//	return 0;
+//}
+
+/* forward_list */
+#include<forward_list>
+
+/* erase_after, before_begin */
+
+//template <typename type> void Show(forward_list<type> ls)
+//{
+//	for (auto it = ls.begin(); it != ls.end(); it++)
+//		cout << *it << ' ';
+//	cout << endl;
+//}
+//int main()
+//{
+//	forward_list<int> ls = { 1,2,3,4,5,6,7,8,9 };
+//	ls.erase_after(ls.begin());
+//	Show(ls);
+//	ls.erase_after(ls.before_begin(), ls.end());
+//	Show(ls);
+//	return 0;
+//}
+
+/* new file Stack_and_Queue */
+
+/* Stack */
+#include<stack>
+
 int main()
 {
-	vector<int> v = { 1, 2, 3, 4, 5, 6, 7, 3, 3, 3 };
-	auto t = for_each(v.begin(), v.end(), [](int a) { cout << a << ' '; });
-	auto count = for_each(v.begin(), v.end(), _Count());
-	cout << endl << count.get_count() << endl;
+	stack<int> st;
+	for (int i = 0; i < 10; i++)
+		st.push(i);
+	while (!st.empty())
+	{
+		cout << st.top() << ' ';
+		st.pop();
+	}
+	cout << endl << st.size() << endl;
 	return 0;
 }
+
+/* emplace or push */
+
+// emplace 可以直接 move construct 
