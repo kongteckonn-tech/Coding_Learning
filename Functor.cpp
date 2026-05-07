@@ -1,4 +1,5 @@
 #include<iostream>
+using namespace std;
 
 /* Functor new file */
 
@@ -202,15 +203,16 @@
 /* predicate adapter */
 
 // bind1st, bind2nd, not1, not2
+
+/* bind1st */
 //#include<vector>
 //#include<algorithm>
-//using namespace std;
 //struct _Count
 //{
 //private:
 //	int _count = 0;
 //public:
-//	void operator()()
+//	void operator()(int a)
 //	{
 //		_count++;
 //	}
@@ -222,8 +224,118 @@
 //int main()
 //{
 //	vector<int> v = { 1, 2, 3, 4, 5, 6, 7, 3, 3, 3 };
-//	auto t = for_each(v.begin(), v.end(), [](int a) { cout << a << ' '; });
-//	auto count = for_each(v.begin(), v.end(), _Count());
-//	cout << endl << count.get_count() << endl;
+//	auto t = for_each(v.begin(), v.end(), _Count());
+//	cout << t.get_count() << endl;
+//	return 0;
+//}
+
+/* bind1st bind2nd */
+
+//#include<vector>
+//#include<algorithm>
+//#include<functional>
+//struct _Fun : public binary_function<int, int, bool>
+//{
+//	bool operator()(int a, int b) const 
+//	{
+//		return a > b;
+//	}
+//};
+//// bind1st 
+///* 
+//struct _Fun : public binary_function<int, int, bool>
+//{
+//	bool operator()(int a, int b) const
+//	{
+//		return a > b;
+//	}
+//};
+//	| cout << count_if(v.begin(), v.end(), bind1st(_Fun(), 3));
+//	v
+//struct _Fun : public binary_function<int, int, bool>
+//{
+//private:
+//	int _a = 3;
+//	bool operator()(int b) const
+//	{
+//		return _a > b;
+//	}
+//};
+//*/
+//int main()
+//{
+//	vector<int> v = { 1, 2, 3, 4, 5, 6, 7, 3, 3, 3 };
+//	// find the count of elements that are smaller than 3
+//	cout << count_if(v.begin(), v.end(), bind1st(_Fun(), 3)) << endl;
+//	// find the count of elements that are greater than 3
+//	cout << count_if(v.begin(), v.end(), bind2nd(_Fun(), 3)) << endl;
+//	return 0;
+//}
+
+/* bind */
+
+//#include<vector>
+//#include<algorithm>
+//#include<functional>
+//bool cmp(int a, int b)
+//{
+//	return a > b;
+//}
+//int main()
+//{
+//	vector<int> arr = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+//	cout << count_if(arr.begin(), arr.end(), bind(cmp, placeholders::_1, 5)) << endl;
+//	return 0;
+//}
+
+/* placeholders */
+#include<vector>
+#include<algorithm>
+#include<functional>
+
+//void show(int a, char b, double c)
+//{
+//	cout << a << " " << b << " " << c << endl;
+//}
+//int main()
+//{
+//	auto fun = std::bind(show, 10, 'A', 3.14); // 绑定参数
+//	fun(20, 'B', 2.5);
+//	fun();// 之后改变参数值无效，因为已经绑定了参数
+//	// std::placeholders::_1, std::placeholders::_2, std::placeholders::_3... 可以用来占位，表示调用时传入的参数
+//	// _1 表示第一个参数，_2 表示第二个参数，依此类推
+//	auto fun2 = std::bind(show, placeholders::_1, placeholders::_2, 3.14);
+//	fun2(40, 'C');
+//	fun2(50, 'D');
+//	return 0;
+//}
+
+/* std::mem_fn() 把类函数 转去 functor */
+
+//class _Person
+//{
+//private:
+//	int _age;
+//	int _id;
+//public:
+//	_Person(int age, int id) : _age(age), _id(id)
+//	{
+//	}
+//	~_Person()
+//	{
+//	}
+//	void show() const
+//	{
+//		cout << "age: " << _age << "\tid: " << _id << endl;
+//	}
+//};
+//int main()
+//{
+//	vector<_Person> v = { _Person(21, 1001), _Person(22, 1002), _Person(23, 1003) };
+//	for (const auto& p : v)
+//	{
+//		p.show();
+//	}
+//	for_each(v.begin(), v.end(), std::mem_fn(&_Person::show));
 //	return 0;
 //}
