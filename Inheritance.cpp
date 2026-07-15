@@ -6,7 +6,7 @@
 /*
 private:	类外不能访问，base class 不能访问
 public:		类外可以访问
-protected:	类外可以访问，base class 可以访问
+protected:	类外不可访问，base class 可以访问
 */
 ;
 	//class base
